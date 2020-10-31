@@ -1,6 +1,7 @@
 #DSA1002 -- Assignment Corona Virus SIR Model
 #Curtin Campus
 #DSANetwork.py -- Main file for SIR model 
+#Shae Sullivan -- SID: 90016419
 
 """package imports"""
 
@@ -58,12 +59,22 @@ class Network:
 
         try:
 
+
             with open(filename, 'r', newline= '') as f:
                 reader = csv.reader(f)
                 for line in reader:
-                    self.add_person(str(line[0]), str(line[1]))
+                    self.add_person(str(line[0]), line[1])
+            
+            for person in self.get_adjacent_people():
+                current_person = person
+                for neighbour in self.get_adjacent_people():
+                    if neighbour == current_person:
+                        continue
+                    else:
+                        self.add_connection({current_person, neighbour})
+
+
                         
-        
         except FileNotFoundError:
             print("The requested file cannot be located in current search path")
 
@@ -74,7 +85,7 @@ class Network:
         if person not in self.__social_network__:
             self.__social_network__[person] = []
             self.suspectable.addPerson_start(person)
-            self.personal_record.put(str(person), list(info))
+            self.personal_record.put(str(person), str(info))
     
     def delete_person(self, person):
         """Deletes a individual person from the social network graph"""
@@ -131,8 +142,10 @@ class Network:
         
         if person1 in self.__social_network__:
             self.__social_network__[person1].append(person2)
+            return
         else:
             self.__social_network__[person1] = [person2]
+            return
     
     def get_connection(self, person):
         """gets a persons connections within the social network"""
@@ -211,6 +224,35 @@ class Network:
 
         return self.connections
     
+    def gender_search_f(self):
+        """Calculates the number of females within social network"""
+
+        n_females = 0
+
+        for person in self.get_adjacent_people():
+            for attribute in self.personal_record.get(person):
+                if attribute == 'f':
+                    n_females += 1
+                    pass
+
+        return n_females
+    
+    def gender_search_m(self):
+        """Calculates the number of males withint the social network"""
+
+        n_males = 0
+
+        for person in self.get_adjacent_people():
+            n_males += 1
+
+        for person in self.get_adjacent_people():
+            for attribute in self.personal_record.get(person):
+                if attribute == 'f':
+                    n_males -= 1
+        
+        return n_males
+                    
+    
     def __edgeform__(self):
         """forms edges(connections) for social network"""
         edges = []
@@ -263,6 +305,7 @@ class Network:
         if self.dead.size() == self.population_calc():
             return
         
+        """if current day < total_days and infected Linked List is Empty Continue"""
         if int(tt) > 5:
             if self.infected.isEmpty() == True:
                 return
@@ -388,6 +431,24 @@ class Network:
                 pass
 
         return self.color_map
+    
+    def death_intervention(self, new_rate, death_rate):
+
+        death_rate = new_rate
+
+        return death_rate
+    
+    def recov_intervention(self, new_rate, recov_rate):
+
+        recov_rate = new_rate
+
+        return recov_rate
+    
+    def inf_intervention(self, new_rate, trans_rate):
+
+        trans_rate = new_rate
+
+        return trans_rate
             
 
 
@@ -395,7 +456,6 @@ class Network:
 if __name__ == '__main__':
 
     graph = Network()
-
 
     graph.add_person('mary', [58, 'female'])
     graph.add_person('john', [87, 'male'])
@@ -406,6 +466,11 @@ if __name__ == '__main__':
     graph.add_person('don', [22, 'male'])
     graph.add_person('harold', [16, 'male'])
     graph.add_person('michelle', [43, 'female'])
+    graph.add_person('logan', [24, 'male'])
+    graph.add_person('julie', [44, 'female'])
+    graph.add_person('harry', [67, 'male'])
+    graph.add_person('isla', [66, 'female'])
+    graph.add_person('sam', [8, 'male'])
 
     graph.add_connection({'john', 'susan'})
     graph.add_connection({'mary', 'bob'})
@@ -449,8 +514,26 @@ if __name__ == '__main__':
     graph.add_connection({'susan', 'michelle'})
     graph.add_connection({'michelle', 'bob'})
     graph.add_connection({'michelle', 'susan'})
+    graph.add_connection({'mary', 'logan'})
+    graph.add_connection({'john', 'logan'})
+    graph.add_connection({'susan', 'logan'})
+    graph.add_connection({'logan', 'mary'})
+    graph.add_connection({'logan', 'harold'})
+    graph.add_connection({'julie', 'mary'})
+    graph.add_connection({'bob', 'sam'})
+    graph.add_connection({'sam', 'michelle'})
+    graph.add_connection({'isla', 'bob'})
+    graph.add_connection({'michelle', 'isla'})
+    graph.add_connection({'mary', 'harry'})
+    graph.add_connection({'harry', 'logan'})
+    graph.add_connection({'susan', 'harry'})
+    graph.add_connection({'julie', 'mary'})
+    graph.add_connection({'logan', 'sam'})
 
-    print(graph.personal_record.export())
+    print(graph.get_adjacent_people())
+
+    print(graph.gender_search_f())
+    print(graph.gender_search_m())
 
 
 

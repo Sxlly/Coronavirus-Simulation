@@ -60,7 +60,7 @@ class interactive_menu(tk.Tk, Network):
 
         tk.Tk.__init__(self, *args, **kwargs)
         self.title('Covid')
-        self.geometry("800x800")
+        self.geometry("800x650")
         self.resizable(0,0)
         self.list = tk.Listbox(self)
 
@@ -629,91 +629,202 @@ class PageThree(tk.Frame):
         self.result_array = np.zeros((10+1,4))
         self.results = tk.Listbox(self, height = 15, width = 20, font= QUICK_FONT)
 
+        """Simulation Value Widgets"""
         trans_text = tk.Label(self, text="Transmission Rate", font = QUICK_FONT)
         trans_input = tk.Text(self, height =  2, width = 8, bg = "light green")
         trans_text.place(x = 180, y = 125)
         trans_input.place(x = 200, y = 150)
-
         recov_text = tk.Label(self, text="Recovery Rate", font = QUICK_FONT)
         recov_input = tk.Text(self, height = 2, width = 8, bg= "light blue")
         recov_text.place(x = 350, y = 125)
         recov_input.place(x = 360, y = 150)
-
         death_text = tk.Label(self, text="Death Rate", font = QUICK_FONT)
         death_input = tk.Text(self, height = 2, width =  8, bg = "light grey")
         death_text.place(x = 520, y = 125)
         death_input.place(x = 525, y = 150)
-
-
         days_text = tk.Label(self, text="Days", font = QUICK_FONT)
         days_input = tk.Text(self, height = 2, width = 6, bg = "azure")
         days_text.place(x = 375, y = 200)
         days_input.place(x = 370, y = 225)
 
-        interventions_text = tk.Label(self, text="Interventions", font = QUICK_FONT)
-        intervention_time_title = tk.Label(self, text="Day Intervention Starts", font = QUICK_FONT)
-        interventions_value_title = tk.Label(self, text="New Rate Value", font = QUICK_FONT)
-        intervention_time = tk.Text(self, height = 2, width = 8, bg= "light pink")
-        intervention_value = tk.Text(self, height = 2, width = 8, bg = "light pink")
-        interventions_text.place(x = 355, y = 300)
+        """Intervention Menu Prompt Button"""
+        interventions_text = ttk.Button(self, text="Interventions Menu", command=lambda: self.intervention_menu(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text))
+        interventions_text.place(x = 340, y = 425)
 
-        intervention_value.place(x = 465, y = 375)
-        intervention_time.place(x = 255, y = 375)
+        """Intervention Layout Widgets"""
 
-        intervention_time_title.place(x = 220, y = 340)
-        interventions_value_title.place(x = 445, y = 340)
+        death_int_title = tk.Label(self, text = "Start Day", font = QUICK_FONT)
+        death_int_title2 = tk.Label(self, text = "Death Rate", font = QUICK_FONT)
+        death_int_time = tk.Text(self, height = 2, width = 8, bg = "light grey")
+        death_int_rate = tk.Text(self, height = 2, width = 8, bg = "light grey")
 
 
+        inf_int_title = tk.Label(self, text="Start Day", font = QUICK_FONT)
+        inf_int_title2 = tk.Label(self, text="Transmission Rate", font = QUICK_FONT)
+        inf_int_time = tk.Text(self, height = 2, width = 8, bg= "light green")
+        inf_int_rate = tk.Text(self, height = 2, width = 8, bg = "light green")
+
+        rec_int_title = tk.Label(self, text = "Start Day", font = QUICK_FONT)
+        rec_int_title2 = tk.Label(self, text = "Recovery Rate", font = QUICK_FONT)
+        rec_int_time = tk.Text(self, height = 2, width = 8, bg = "light blue")
+        rec_int_rate = tk.Text(self, height = 2, width = 8, bg = "light blue")
+
+        """Initial Infect Widgets"""
         initial_infect_title = tk.Label(self, text= "Enter Name Of Initial Infected Person", font = QUICK_FONT)
         initial_infect = tk.Text(self, height = 2, width = 15, bg = "azure")
-        initial_infect_title.place(x = 280, y = 450)
-        initial_infect.place(x = 335, y = 500)
+        initial_infect_title.place(x = 280, y = 300)
+        initial_infect.place(x = 335, y = 350)
 
+        """Results SIRD Title"""
         sird_title = tk.Label(self, text= "S, I, R, D", font = LARGE_FONT)
 
-
+        """Main Simulation Widgets"""
         button1 = ttk.Button(self, text="Back to Main Menu", command=lambda: controller.show_frame(StartPage))
         button1.place(x = 345, y = 50)
-
         button2 = ttk.Button(self, text="To Statistics", command=lambda: controller.show_frame(PageTwo)) 
         button2.place(x = 362.5, y = 75)
-
-        intervention_command = ttk.Button(self, text="Run With Intervention", command=lambda: self.activate_intervention(intervention_time, intervention_value, initial_infect, trans_input, recov_input, death_input, days_input))
-        intervention_command.place(x = 335, y = 650)
-
+        intervention_command = ttk.Button(self, text="Run With Intervention", command=lambda: self.activate_intervention(inf_int_time, inf_int_rate, death_int_rate, death_int_time, rec_int_rate, rec_int_time))
         button3 = ttk.Button(self, text="Run Simulation", command=lambda: self.plot(initial_infect, trans_input, recov_input, death_input, days_input))
         button3.place(x = 350, y = 700)
-
-        button4 = ttk.Button(self, text="See Results Of Past Simulation", command=lambda: self.result_run(trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, intervention_time_title, interventions_value_title, intervention_time, intervention_value, initial_infect, initial_infect_title, days_input, days_text, sird_title))
+        button4 = ttk.Button(self, text="See Results Of Past Simulation", command=lambda: self.result_run(trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title))
         button4.place(x = 310, y = 750)
+        button5 = ttk.Button(self, text="Reset", command=lambda: self.reset_sim(trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title))
 
-        button5 = ttk.Button(self, text="Reset", command=lambda: self.reset_sim(trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, intervention_time_title, interventions_value_title, intervention_time, intervention_value, initial_infect, initial_infect_title, days_input, days_text, sird_title))
+        """Intervention Support Extra Widgets"""
+        self.g_trans_rate = 0
+        self.g_recov_rate = 0
+        self.g_death_rate = 0
+        self.g_days = 0
+        self.g_initial_infect = ""
 
-    def activate_intervention(self, intervention_time, intervention_value, initial_infect, trans_input, recov_input, death_input, days_input):
+        """Slow/Fast Motion Support Widgets"""
+
+        ex_slow = ttk.Button(self, text = "Extreme SlowMotion", command=lambda: NotImplementedError)
+        slow = ttk.Button(self, text = "SlowMotion", command=lambda: NotImplementedError)
+        reg_speed = ttk.Button(self, text = "Normal Speed", command=lambda: NotImplementedError)
+        fast = ttk.Button(self, text = "FastMotion", command=lambda: NotImplementedError)
+        ex_fast = ttk.Button(self, text = "Extreme FastMotion", command=lambda: NotImplementedError)
+
+
+    def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text):
+        
+        """Holding Original Rates From Simulation Main Page"""
+        
+        self.g_trans_rate = float(trans_input.get("1.0", "end-1c"))
+        self.g_death_rate = float(death_input.get("1.0", "end-1c"))
+        self.g_recov_rate = float(recov_input.get("1.0", "end-1c"))
+        self.g_days = int(days_input.get("1.0", "end-1c"))
+        self.g_initial_infect = str(initial_infect.get("1.0", "end-1c"))
+
+        """Clear Home Page Simulation Buttons"""
+        trans_input.place_forget()
+        recov_input.place_forget()
+        death_input.place_forget()
+        button3.place_forget()
+        button4.place_forget()
+        intervention_command.place_forget()
+        trans_text.place_forget()
+        recov_text.place_forget()
+        death_text.place_forget()
+        interventions_text.place_forget()
+        inf_int_title.place_forget()
+        inf_int_title2.place_forget()
+        inf_int_time.place_forget()
+        inf_int_rate.place_forget()
+        initial_infect.place_forget()
+        initial_infect_title.place_forget()
+        days_input.place_forget()
+        days_text.place_forget()
+
+        inf_int_rate.place(x = 420, y = 200)
+        inf_int_time.place(x = 300, y = 200)
+        inf_int_title.place(x = 300, y = 150)
+        inf_int_title2.place(x = 400, y = 150)
+
+        intervention_command.place(x = 335, y = 600)
+
+        death_int_title.place(x = 300, y = 250)
+        death_int_title2.place(x = 415, y = 250)
+        death_int_time.place(x = 300, y = 300)
+        death_int_rate.place(x = 420, y = 300)
+
+        rec_int_title.place(x = 300, y = 350)
+        rec_int_title2.place(x = 407.5, y = 350)
+        rec_int_time.place(x = 300, y = 400)
+        rec_int_rate.place(x = 420, y = 400)
+
+        
+
+        return
+
+
+    def activate_intervention(self, inf_int_time, inf_int_rate, death_int_rate, death_int_time, rec_int_rate, rec_int_time):
         
         """Added Intervention Support"""
 
+        """Intervention Settings Obtainer"""
 
-        intervention_day = int(intervention_time.get("1.0", "end-1c"))
-        intervention_rate = float(intervention_value.get("1.0", "end-1c"))
+        """Infected Intervention"""
+        if inf_int_time.index("end") != 0:  
+            inf_intervention_day = int(inf_int_time.get("1.0", "end-1c"))
+            inf_intervention_rate = float(inf_int_rate.get("1.0", "end-1c"))
+            pass
+        else:
+            pass
 
-        person = str(initial_infect.get("1.0", "end-1c"))
-        recov_rate = float(recov_input.get("1.0", "end-1c"))
-        trans_const = float(trans_input.get("1.0", "end-1c"))
-        death_rate = float(death_input.get("1.0", "end-1c"))
-        days = int(days_input.get("1.0", "end-1c"))
+        """Death Interention"""
+        if death_int_time.index("end") != 0:
+            death_intervention_day = int(death_int_time.get("1.0", "end-1c"))
+            death_intervention_rate = float(death_int_rate.get("1.0", "end-1c"))
+            pass
+        else:
+            pass
 
+        """Recovery Intervention"""
+        if rec_int_time.index("end") != 0:
+            rec_intervention_day = int(rec_int_time.get("1.0", "end-1c"))
+            rec_intervention_rate = float(rec_int_rate.get("1.0", "end-1c"))
+            pass
+        else:
+            pass
+
+        """Original Simulation Rates and Settings"""
+        person = self.g_initial_infect
+        recov_rate = self.g_recov_rate
+        trans_const = self.g_trans_rate
+        death_rate = self.g_death_rate
+        days = self.g_days
+
+        """SIRD Simulation Results Array"""
         self.result_array = np.zeros((days+1, 4))
 
         graph.add_initial(person)
 
         for tt in range(1, days+1):
 
-            """Intervention in effect"""
+            """Intervention Activation"""
 
-            while tt >= intervention_day:
+            """Transmission Rate Intervention Driver"""
+            if inf_intervention_day:
+                while tt >= inf_intervention_day:
+                    trans_const = graph.inf_intervention(inf_intervention_rate, trans_const)
+                    break
+                pass
 
-                trans_const = intervention_rate
+            """Death Rate Intervention Driver"""
+            if death_intervention_day:
+                while tt >= death_intervention_day:
+                    death_rate = graph.death_intervention(death_intervention_rate, death_rate)
+                    break
+                pass
+
+            """Recovery Rate Intervention Driver"""
+            
+            if rec_intervention_day:
+                while tt >= rec_intervention_day:
+                    recov_rate = graph.recov_intervention(rec_intervention_rate, recov_rate)
+                    break
+                pass
 
 
             graph.interact(person, tt, trans_const, recov_rate, death_rate)
@@ -725,17 +836,123 @@ class PageThree(tk.Frame):
 
             self.result_array[tt,:] = S, I, R, D
 
-            plt.pause(0.5)
-            plt.subplot(1, 2, 1)
-            plt.plot(tt, self.result_array[tt, 0], 'yo')
-            plt.plot(tt, self.result_array[tt, 1], 'go') 
-            plt.plot(tt, self.result_array[tt, 2], 'bo')
-            plt.plot(tt, self.result_array[tt, 3], 'ko')
+            while tt == 1:
 
-            plt.subplot(1, 2, 2)
+                plt.figure(figsize=(10,7))
+                break
+            
+            """Pause Support For MatPlotLib"""
+            plt.pause(0.5)
+            plt.subplot(1, 3, 1)
+
+            if inf_intervention_day:
+                while tt == inf_intervention_day:
+                    plt.text(tt, 4, s = "--> INTERVENTION ACTIVE", color = 'green')
+                    break
+                pass
+
+            if death_intervention_day:
+                while tt == death_intervention_day:
+                    plt.text(tt, 6, s = "--> INTERVENTION ACTIVE", color = 'grey')
+                    break
+                pass
+
+            if rec_intervention_day:
+                while tt == rec_intervention_day:
+                    plt.text(tt, 8, s = "--> INTERVENTION ACTIVE", color = 'blue')
+                    break
+                pass
+
+            """Main Line Graph Support"""
+
+            plt.title("STATS GRAPH")
+            plt.xlabel("DAYS")
+            plt.ylabel("PEOPLE")
+            plt.plot(tt, self.result_array[tt, 0], 'yo', label = "Suspects")
+            plt.plot(tt, self.result_array[tt, 1], 'go', label = "Infected") 
+            plt.plot(tt, self.result_array[tt, 2], 'bo', label = "Recovered")
+            plt.plot(tt, self.result_array[tt, 3], 'ko', label = "Died")
+            plt.subplots_adjust(wspace = 0.75)
+
+
+            while tt <= 1:
+
+                plt.legend(bbox_to_anchor = [0.5, 0.85], bbox_transform = plt.gcf().transFigure, fontsize = "x-small", loc = 'center')
+                death_text = plt.text(0.45, 0.75, "DEATH RATE: " + str(death_rate * 100) + "%",  transform = plt.gcf().transFigure, fontsize = 10)
+                inf_text = plt.text(0.45, 0.725, "INF RATE: " + str(trans_const * 100) + "%", transform = plt.gcf().transFigure, fontsize = 10)
+                recov_text = plt.text(0.45, 0.70, "RECOV RATE: " + str(recov_rate * 100) + "%", transform = plt.gcf().transFigure, fontsize = 10)
+                break
+
+            if inf_intervention_day:
+                while tt >= inf_intervention_day:
+                    inf_text.set_text("INF RATE: " + str(trans_const * 100) + "%")
+                    break
+                pass
+
+            if death_intervention_day:
+                while tt >= death_intervention_day:
+                    death_text.set_text("DEATH RATE: " + str(death_rate * 100) + "%")
+                    break
+                pass
+
+            if rec_intervention_day:
+                while tt >= rec_intervention_day:
+                    recov_text.set_text("RECOV RATE: " + str(recov_rate * 100) + "%")
+                    break
+                pass
+            
+
+            """Networkx Social Network Graph Visualisation Support"""
+
+            plt.subplot(1, 3, 3)
+            plt.title("SOCIAL NETWORK")
             nx.draw_networkx(graph.graph_visual(), pos=nx.spring_layout(graph.graph_visual()), node_color = graph.color_set(), node_size=300, node_shape='d')
             plt.cla()
+            plt.title("SOCIAL NETWORK")
             nx.draw_networkx(graph.graph_visual(), pos=nx.spring_layout(graph.graph_visual()), node_color = graph.color_set(), node_size=300, node_shape='d')
+
+
+
+            """Pi Chart Support"""
+
+            pi_labels = 'Suspects', 'Infected', 'Recovered', 'Dead'
+            pi_colors = ['yellow', 'green', 'blue', 'grey']
+            pi_sizes = [graph.suspectable.size(), graph.infected.size(), graph.recovered.size(), graph.dead.size()]
+
+            pi_g_labels = 'Male', 'Female'
+            pi_g_colors = ['skyblue', 'lightpink']
+            pi_g_sizes = [graph.gender_search_m(), graph.gender_search_f()]
+            
+            """Exploding Largest Health Category Within Pie Chart at Iteration (day)"""
+            if max(pi_sizes) == graph.suspectable.size():
+                pi_explode = (0.15, 0, 0, 0)
+                pass
+            if max(pi_sizes) == graph.infected.size():
+                pi_explode = (0, 0.15, 0, 0)
+                pass
+            if max(pi_sizes) == graph.recovered.size():
+                pi_explode = (0, 0, 0.15, 0)
+                pass
+            if max(pi_sizes) == graph.dead.size():
+                pi_explode = (0, 0, 0, 0.15)
+                pass
+
+            plt.subplot(1, 3, 2)
+            plt.pie(pi_sizes, explode = pi_explode, labels = pi_labels, colors = pi_colors, autopct = "%1.1f%%", shadow = True, pctdistance = 1.5, startangle = 90)
+            plt.pie(pi_g_sizes, labels = pi_g_labels, colors = pi_g_colors, autopct = "%1.1f%%", shadow = True, radius = 0.75, startangle = 90)
+            pi_circle = plt.Circle((0,0), 0.7, color = 'white')
+            p = plt.gcf()
+            p.gca().add_artist(pi_circle)
+            plt.axis('equal')
+
+            plt.cla()
+
+            plt.pie(pi_sizes, explode = pi_explode, labels = pi_labels, colors = pi_colors,  autopct = "%1.1f%%", shadow = True, pctdistance = 1.5, startangle = 90)
+            plt.pie(pi_g_sizes, labels = pi_g_labels, colors = pi_g_colors, autopct = "%1.1f%%", shadow = True, radius = 0.75, startangle = 90)
+            pi_circle = plt.Circle((0,0), 0.3, color = 'white')
+            p = plt.gcf()
+            p.gca().add_artist(pi_circle)
+            plt.axis('equal')
 
         plt.show()
 
@@ -781,7 +998,7 @@ class PageThree(tk.Frame):
 
         return
 
-    def result_run(self, trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, intervention_time_title, interventions_value_title, intervention_time, intervention_value, initial_infect, initial_infect_title, days_input, days_text, sird_title):
+    def result_run(self, trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title):
 
         
         trans_input.place_forget()
@@ -794,10 +1011,10 @@ class PageThree(tk.Frame):
         recov_text.place_forget()
         death_text.place_forget()
         interventions_text.place_forget()
-        intervention_time_title.place_forget()
-        interventions_value_title.place_forget()
-        intervention_time.place_forget()
-        intervention_value.place_forget()
+        inf_int_title.place_forget()
+        inf_int_title2.place_forget()
+        inf_int_time.place_forget()
+        inf_int_rate.place_forget()
         initial_infect.place_forget()
         initial_infect_title.place_forget()
         days_input.place_forget()
@@ -816,7 +1033,7 @@ class PageThree(tk.Frame):
         return
 
 
-    def reset_sim(self, trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, intervention_time_title, interventions_value_title, intervention_time, intervention_value, initial_infect, initial_infect_title, days_input, days_text, sird_title):
+    def reset_sim(self, trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title):
 
         self.results.place_forget()
         trans_input.place_forget()
@@ -829,10 +1046,10 @@ class PageThree(tk.Frame):
         recov_text.place_forget()
         death_text.place_forget()
         interventions_text.place_forget()
-        intervention_time_title.place_forget()
-        interventions_value_title.place_forget()
-        intervention_time.place_forget()
-        intervention_value.place_forget()
+        inf_int_title.place_forget()
+        inf_int_title2.place_forget()
+        inf_int_time.place_forget()
+        inf_int_rate.place_forget()
         initial_infect.place_forget()
         initial_infect_title.place_forget()
         sird_title.place_forget()
@@ -850,10 +1067,10 @@ class PageThree(tk.Frame):
         days_text.place(x = 370, y = 200)
         days_input.place(x = 365, y = 225)
         interventions_text.place(x = 355, y = 300)
-        intervention_value.place(x = 465, y = 375)
-        intervention_time.place(x = 255, y = 375)
-        intervention_time_title.place(x = 225, y = 340)
-        interventions_value_title.place(x = 450, y = 340)
+        inf_int_rate.place(x = 465, y = 375)
+        inf_int_time.place(x = 255, y = 375)
+        inf_int_title.place(x = 225, y = 340)
+        inf_int_title2.place(x = 450, y = 340)
         initial_infect_title.place(x = 280, y = 450)
         initial_infect.place(x = 335, y = 500)
 

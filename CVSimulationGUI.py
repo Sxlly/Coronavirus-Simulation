@@ -648,7 +648,7 @@ class PageThree(tk.Frame):
         days_input.place(x = 370, y = 225)
 
         """Intervention Menu Prompt Button"""
-        interventions_text = ttk.Button(self, text="Interventions Menu", command=lambda: self.intervention_menu(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text))
+        interventions_text = ttk.Button(self, text="Interventions Menu", command=lambda: self.intervention_menu(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast))
         interventions_text.place(x = 340, y = 425)
 
         """Intervention Layout Widgets"""
@@ -697,16 +697,80 @@ class PageThree(tk.Frame):
         self.g_days = 0
         self.g_initial_infect = ""
 
+        """Slow/Fast Motion Support Extra Widgets"""
+        self.ex_slow_set = True
+        self.slow_set = True
+        self.reg_speed_set = True
+        self.fast_set = True
+        self.ex_fast_set = True
+
         """Slow/Fast Motion Support Widgets"""
 
-        ex_slow = ttk.Button(self, text = "Extreme SlowMotion", command=lambda: NotImplementedError)
-        slow = ttk.Button(self, text = "SlowMotion", command=lambda: NotImplementedError)
-        reg_speed = ttk.Button(self, text = "Normal Speed", command=lambda: NotImplementedError)
-        fast = ttk.Button(self, text = "FastMotion", command=lambda: NotImplementedError)
-        ex_fast = ttk.Button(self, text = "Extreme FastMotion", command=lambda: NotImplementedError)
+        ex_slow = ttk.Button(self, text = "Extreme SlowMotion", command=lambda: self.ex_slow_method())
+        slow = ttk.Button(self, text = "SlowMotion", command=lambda: self.slow_method())
+        reg_speed = ttk.Button(self, text = "Normal Speed", command=lambda: self.reg_speed_method())
+        fast = ttk.Button(self, text = "FastMotion", command=lambda: self.fast_method())
+        ex_fast = ttk.Button(self, text = "Extreme FastMotion", command=lambda: self.ex_fast_method())
 
 
-    def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text):
+    def ex_slow_method(self):
+        """Activates Extreme Slow Motion"""
+
+        self.ex_slow_set = True
+
+        self.slow_set = False
+        self.reg_speed_set = False
+        self.fast_set = False
+        self.ex_fast_set = False
+        return
+    
+    def slow_method(self):
+        """Activates Extreme Slow Motion"""
+
+        self.slow_set = True
+
+        self.ex_slow_set = False
+        self.reg_speed_set = False
+        self.fast_set = False
+        self.ex_fast_set = False
+        return
+    
+    def reg_speed_method(self):
+        """Activates Extreme Slow Motion"""
+
+        self.reg_speed_set = True
+
+        self.ex_slow_set = False
+        self.slow_set = False
+        self.fast_set = False
+        self.ex_fast_set = False
+        return
+
+    def fast_method(self):
+        """Activates Extreme Slow Motion"""
+
+        self.fast_set = True
+
+        self.ex_slow_set = False
+        self.slow_set = False
+        self.reg_speed_set = False
+        self.ex_fast_set = False
+        return
+    
+    def ex_fast_method(self):
+        """Activates Extreme Slow Motion"""
+
+        self.ex_fast_set = True
+
+        self.ex_slow_set = False
+        self.slow_set = False
+        self.reg_speed_set = False
+        self.fast_set = False
+        return
+
+
+
+    def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast):
         
         """Holding Original Rates From Simulation Main Page"""
         
@@ -752,6 +816,12 @@ class PageThree(tk.Frame):
         rec_int_title2.place(x = 407.5, y = 350)
         rec_int_time.place(x = 300, y = 400)
         rec_int_rate.place(x = 420, y = 400)
+
+        ex_slow.place(x = 100, y = 450)
+        slow.place(x = 245, y = 450)
+        reg_speed.place(x = 325, y = 450)
+        fast.place(x = 425, y = 450)
+        ex_fast.place(x = 525, y = 450)
 
         
 
@@ -842,7 +912,23 @@ class PageThree(tk.Frame):
                 break
             
             """Pause Support For MatPlotLib"""
-            plt.pause(0.5)
+
+            if self.ex_slow_set == True:
+                plt.pause(1.5)
+                pass
+            if self.slow_set == True:
+                plt.pause(1)
+                pass
+            if self.reg_speed_set == True:
+                plt.pause(0.5)
+                pass
+            if self.fast_set == True:
+                plt.pause(0.25)
+                pass
+            if self.ex_fast_set == True:
+                plt.pause(0.15)
+                pass
+
             plt.subplot(1, 3, 1)
 
             if inf_intervention_day:
@@ -925,16 +1011,16 @@ class PageThree(tk.Frame):
             
             """Exploding Largest Health Category Within Pie Chart at Iteration (day)"""
             if max(pi_sizes) == graph.suspectable.size():
-                pi_explode = (0.15, 0, 0, 0)
+                pi_explode = (0.05, 0, 0, 0)
                 pass
             if max(pi_sizes) == graph.infected.size():
-                pi_explode = (0, 0.15, 0, 0)
+                pi_explode = (0, 0.05, 0, 0)
                 pass
             if max(pi_sizes) == graph.recovered.size():
-                pi_explode = (0, 0, 0.15, 0)
+                pi_explode = (0, 0, 0.05, 0)
                 pass
             if max(pi_sizes) == graph.dead.size():
-                pi_explode = (0, 0, 0, 0.15)
+                pi_explode = (0, 0, 0, 0.05)
                 pass
 
             plt.subplot(1, 3, 2)

@@ -648,7 +648,7 @@ class PageThree(tk.Frame):
         days_input.place(x = 370, y = 225)
 
         """Intervention Menu Prompt Button"""
-        interventions_text = ttk.Button(self, text="Interventions Menu", command=lambda: self.intervention_menu(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast))
+        interventions_text = ttk.Button(self, text="Interventions Menu", command=lambda: self.intervention_menu(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast, intervention_exit_button))
         interventions_text.place(x = 340, y = 425)
 
         """Intervention Layout Widgets"""
@@ -683,7 +683,10 @@ class PageThree(tk.Frame):
         button1.place(x = 345, y = 50)
         button2 = ttk.Button(self, text="To Statistics", command=lambda: controller.show_frame(PageTwo)) 
         button2.place(x = 362.5, y = 75)
+
         intervention_command = ttk.Button(self, text="Run With Intervention", command=lambda: self.activate_intervention(inf_int_time, inf_int_rate, death_int_rate, death_int_time, rec_int_rate, rec_int_time))
+        intervention_exit_button = ttk.Button(self, text="Return", command=lambda: self.intervention_exit(inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, button1, button2, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast, intervention_exit_button))
+
         button3 = ttk.Button(self, text="Run Simulation", command=lambda: self.plot(initial_infect, trans_input, recov_input, death_input, days_input))
         button3.place(x = 350, y = 700)
         button4 = ttk.Button(self, text="See Results Of Past Simulation", command=lambda: self.result_run(trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title))
@@ -770,7 +773,7 @@ class PageThree(tk.Frame):
 
 
 
-    def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast):
+    def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast, intervention_exit_button):
         
         """Holding Original Rates From Simulation Main Page"""
         
@@ -805,7 +808,8 @@ class PageThree(tk.Frame):
         inf_int_title.place(x = 300, y = 150)
         inf_int_title2.place(x = 400, y = 150)
 
-        intervention_command.place(x = 335, y = 600)
+        intervention_command.place(x = 325, y = 600)
+        intervention_exit_button.place(x = 350, y = 500)
 
         death_int_title.place(x = 300, y = 250)
         death_int_title2.place(x = 415, y = 250)
@@ -817,13 +821,11 @@ class PageThree(tk.Frame):
         rec_int_time.place(x = 300, y = 400)
         rec_int_rate.place(x = 420, y = 400)
 
-        ex_slow.place(x = 100, y = 450)
-        slow.place(x = 245, y = 450)
-        reg_speed.place(x = 325, y = 450)
-        fast.place(x = 425, y = 450)
-        ex_fast.place(x = 525, y = 450)
-
-        
+        ex_slow.place(x = 150, y = 450)
+        slow.place(x = 295, y = 450)
+        reg_speed.place(x = 375, y = 450)
+        fast.place(x = 465, y = 450)
+        ex_fast.place(x = 545, y = 450)
 
         return
 
@@ -1117,6 +1119,46 @@ class PageThree(tk.Frame):
         sird_title.place(x = 340, y = 150)
 
         return
+    
+    def intervention_exit(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, button1, button2, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast, intervention_exit_button):
+
+        inf_int_rate.place_forget()
+        inf_int_time.place_forget()
+        inf_int_title.place_forget()
+        inf_int_title2.place_forget()
+        intervention_command.place_forget()
+        death_int_title.place_forget()
+        death_int_title2.place_forget()
+        death_int_time.place_forget()
+        death_int_rate.place_forget()
+        rec_int_title.place_forget()
+        rec_int_title2.place_forget()
+        rec_int_time.place_forget()
+        rec_int_rate.place_forget()
+        ex_slow.place_forget()
+        slow.place_forget()
+        reg_speed.place_forget()
+        fast.place_forget()
+        ex_fast.place_forget()
+        intervention_exit_button.place_forget()
+
+        trans_text.place(x = 180, y = 125)
+        trans_input.place(x = 200, y = 150)
+        recov_text.place(x = 350, y = 125)
+        recov_input.place(x = 360, y = 150)
+        death_text.place(x = 520, y = 125)
+        death_input.place(x = 525, y = 150)
+        days_text.place(x = 375, y = 200)
+        days_input.place(x = 370, y = 225)
+        interventions_text.place(x = 340, y = 425)
+        initial_infect_title.place(x = 280, y = 300)
+        initial_infect.place(x = 335, y = 350)
+        button1.place(x = 345, y = 50)
+        button2.place(x = 362.5, y = 75)
+        button3.place(x = 350, y = 700)
+        button4.place(x = 310, y = 750)
+
+        return
 
 
     def reset_sim(self, trans_input, recov_input, death_input, button5, button3, button4, intervention_command, trans_text, recov_text, death_text, interventions_text, inf_int_title, inf_int_title2, inf_int_time, inf_int_rate, initial_infect, initial_infect_title, days_input, days_text, sird_title):
@@ -1170,6 +1212,7 @@ class PageThree(tk.Frame):
         for person in graph.dead.export():
             graph.suspectable.addPerson_start(person)
             graph.dead.delete_person(person)
+    
 
     
 """Test Harness"""

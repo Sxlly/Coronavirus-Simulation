@@ -15,6 +15,7 @@ import numpy as np
 import random
 
 from tkinter import *
+from tkinter import messagebox
 from tkinter.messagebox import showinfo
 from tkinter import ttk
 from PIL import ImageTk, Image
@@ -725,6 +726,9 @@ class PageThree(tk.Frame):
         self.reg_speed_set = False
         self.fast_set = False
         self.ex_fast_set = False
+
+        messagebox.showwarning("Motion Active", "Simulation Is Now Set To Extreme SlowMotion")
+
         return
     
     def slow_method(self):
@@ -736,6 +740,9 @@ class PageThree(tk.Frame):
         self.reg_speed_set = False
         self.fast_set = False
         self.ex_fast_set = False
+
+        messagebox.showwarning("Motion Active", "Simulation Is Now Set To SlowMotion")
+
         return
     
     def reg_speed_method(self):
@@ -747,6 +754,9 @@ class PageThree(tk.Frame):
         self.slow_set = False
         self.fast_set = False
         self.ex_fast_set = False
+
+        messagebox.showwarning("Motion Active", "Simulation Is Now Set To Regular Speed")
+
         return
 
     def fast_method(self):
@@ -758,6 +768,9 @@ class PageThree(tk.Frame):
         self.slow_set = False
         self.reg_speed_set = False
         self.ex_fast_set = False
+
+        messagebox.showwarning("Motion Active", "Simulation Is Now Set To FastMotion")
+
         return
     
     def ex_fast_method(self):
@@ -769,65 +782,72 @@ class PageThree(tk.Frame):
         self.slow_set = False
         self.reg_speed_set = False
         self.fast_set = False
+
+        messagebox.showwarning("Motion Active", "Simulation Is Now Set To Extreme FastMotion")
+
         return
 
 
 
     def intervention_menu(self, inf_int_title, inf_int_rate, inf_int_time, inf_int_title2, death_int_title, death_int_title2, death_int_time, death_int_rate, rec_int_title, rec_int_title2, rec_int_time, rec_int_rate, interventions_text, intervention_command, trans_input, recov_input, death_input, button5, button3, button4, trans_text, recov_text, death_text, initial_infect, initial_infect_title, days_input, days_text, ex_slow, slow, reg_speed, fast, ex_fast, intervention_exit_button):
+        try:
+            """Holding Original Rates From Simulation Main Page"""
+            
+            self.g_trans_rate = float(trans_input.get("1.0", "end-1c"))
+            self.g_death_rate = float(death_input.get("1.0", "end-1c"))
+            self.g_recov_rate = float(recov_input.get("1.0", "end-1c"))
+            self.g_days = int(days_input.get("1.0", "end-1c"))
+            self.g_initial_infect = str(initial_infect.get("1.0", "end-1c"))
+
+            """Clear Home Page Simulation Buttons"""
+            trans_input.place_forget()
+            recov_input.place_forget()
+            death_input.place_forget()
+            button3.place_forget()
+            button4.place_forget()
+            intervention_command.place_forget()
+            trans_text.place_forget()
+            recov_text.place_forget()
+            death_text.place_forget()
+            interventions_text.place_forget()
+            inf_int_title.place_forget()
+            inf_int_title2.place_forget()
+            inf_int_time.place_forget()
+            inf_int_rate.place_forget()
+            initial_infect.place_forget()
+            initial_infect_title.place_forget()
+            days_input.place_forget()
+            days_text.place_forget()
+
+            inf_int_rate.place(x = 420, y = 200)
+            inf_int_time.place(x = 300, y = 200)
+            inf_int_title.place(x = 300, y = 150)
+            inf_int_title2.place(x = 400, y = 150)
+
+            intervention_command.place(x = 325, y = 600)
+            intervention_exit_button.place(x = 350, y = 500)
+
+            death_int_title.place(x = 300, y = 250)
+            death_int_title2.place(x = 415, y = 250)
+            death_int_time.place(x = 300, y = 300)
+            death_int_rate.place(x = 420, y = 300)
+
+            rec_int_title.place(x = 300, y = 350)
+            rec_int_title2.place(x = 407.5, y = 350)
+            rec_int_time.place(x = 300, y = 400)
+            rec_int_rate.place(x = 420, y = 400)
+
+            ex_slow.place(x = 145, y = 450)
+            slow.place(x = 270, y = 450)
+            reg_speed.place(x = 350, y = 450)
+            fast.place(x = 440, y = 450)
+            ex_fast.place(x = 520, y = 450)
         
-        """Holding Original Rates From Simulation Main Page"""
-        
-        self.g_trans_rate = float(trans_input.get("1.0", "end-1c"))
-        self.g_death_rate = float(death_input.get("1.0", "end-1c"))
-        self.g_recov_rate = float(recov_input.get("1.0", "end-1c"))
-        self.g_days = int(days_input.get("1.0", "end-1c"))
-        self.g_initial_infect = str(initial_infect.get("1.0", "end-1c"))
+        except ValueError:
+            messagebox.showerror("Values Missing", "One Or More Rate Values Are Missing")
 
-        """Clear Home Page Simulation Buttons"""
-        trans_input.place_forget()
-        recov_input.place_forget()
-        death_input.place_forget()
-        button3.place_forget()
-        button4.place_forget()
-        intervention_command.place_forget()
-        trans_text.place_forget()
-        recov_text.place_forget()
-        death_text.place_forget()
-        interventions_text.place_forget()
-        inf_int_title.place_forget()
-        inf_int_title2.place_forget()
-        inf_int_time.place_forget()
-        inf_int_rate.place_forget()
-        initial_infect.place_forget()
-        initial_infect_title.place_forget()
-        days_input.place_forget()
-        days_text.place_forget()
-
-        inf_int_rate.place(x = 420, y = 200)
-        inf_int_time.place(x = 300, y = 200)
-        inf_int_title.place(x = 300, y = 150)
-        inf_int_title2.place(x = 400, y = 150)
-
-        intervention_command.place(x = 325, y = 600)
-        intervention_exit_button.place(x = 350, y = 500)
-
-        death_int_title.place(x = 300, y = 250)
-        death_int_title2.place(x = 415, y = 250)
-        death_int_time.place(x = 300, y = 300)
-        death_int_rate.place(x = 420, y = 300)
-
-        rec_int_title.place(x = 300, y = 350)
-        rec_int_title2.place(x = 407.5, y = 350)
-        rec_int_time.place(x = 300, y = 400)
-        rec_int_rate.place(x = 420, y = 400)
-
-        ex_slow.place(x = 150, y = 450)
-        slow.place(x = 295, y = 450)
-        reg_speed.place(x = 375, y = 450)
-        fast.place(x = 465, y = 450)
-        ex_fast.place(x = 545, y = 450)
-
-        return
+        finally:
+            return
 
 
     def activate_intervention(self, inf_int_time, inf_int_rate, death_int_rate, death_int_time, rec_int_rate, rec_int_time):
@@ -901,6 +921,7 @@ class PageThree(tk.Frame):
 
             graph.interact(person, tt, trans_const, recov_rate, death_rate)
 
+            """SIRD Values For Each Iteration"""
             S = graph.suspectable.size()
             I = graph.infected.size()
             R = graph.recovered.size()

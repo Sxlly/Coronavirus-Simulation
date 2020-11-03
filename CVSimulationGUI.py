@@ -39,6 +39,7 @@ style.use("ggplot")
 
 LARGE_FONT = ("Courier", 14)
 QUICK_FONT = ("Times", 12)
+TITLE_FONT = ("NHL Wild", 24)
 style.use("ggplot")
 
 HEIGHT = 25
@@ -97,8 +98,8 @@ class LaunchPage(tk.Frame):
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background = Label(self, image = self.background_image)
         self.background.pack(fill = BOTH, expand = YES)
-        label = tk.Label(self, text= "CoronaVirus Social Network Spread Simulator", font= LARGE_FONT)
-        label.place(x = 165, y = 250)
+        label = tk.Label(self, text= "CoronaVirus Social Network Spread Simulator", font= TITLE_FONT, fg = "green", bg = "black")
+        label.place(x = 140, y = 250)
 
         filename_input = tk.Text(self, height = 2, width = 35, bg= "light pink")
         open_command = tk.Button(self, text= "Open", command=lambda: self.load_network(filename_input, controller), fg= "black", bg= "green", height= 2, width = 10)

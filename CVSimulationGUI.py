@@ -34,13 +34,13 @@ from DSAHashT import DSA_Hash_Table
 """GUI build"""
 
 matplotlib.use('TkAgg')
-style.use("ggplot")
+style.use("fivethirtyeight")
 
 
-LARGE_FONT = ("Courier", 14)
-QUICK_FONT = ("Times", 12)
-TITLE_FONT = ("NHL Wild", 24)
-style.use("ggplot")
+
+LARGE_FONT = ("Blacklisted", 16)
+QUICK_FONT = ("Blacklisted", 12)
+TITLE_FONT = ("Blacklisted", 20)
 
 HEIGHT = 25
 WIDTH = 60
@@ -61,7 +61,7 @@ class interactive_menu(tk.Tk, Network):
         self.graph = Network()
 
         tk.Tk.__init__(self, *args, **kwargs)
-        self.title('Covid')
+        self.title('SNDSS')
         self.geometry("800x650")
         self.resizable(0,0)
         self.list = tk.Listbox(self)
@@ -98,7 +98,7 @@ class LaunchPage(tk.Frame):
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background = Label(self, image = self.background_image)
         self.background.pack(fill = BOTH, expand = YES)
-        label = tk.Label(self, text= "CoronaVirus Social Network Spread Simulator", font= TITLE_FONT, fg = "green", bg = "black")
+        label = tk.Label(self, text= "CoronaVirus Social Network Spread Simulator", font= TITLE_FONT, fg = "green")
         label.place(x = 140, y = 250)
 
         filename_input = tk.Text(self, height = 2, width = 35, bg= "light pink")
@@ -932,7 +932,7 @@ class PageThree(tk.Frame):
 
             while tt == 1:
 
-                plt.figure(figsize=(10,7))
+                plt.figure(figsize=(20,10))
                 break
             
             """Pause Support For MatPlotLib"""
@@ -987,7 +987,7 @@ class PageThree(tk.Frame):
 
             while tt <= 1:
 
-                plt.legend(bbox_to_anchor = [0.5, 0.85], bbox_transform = plt.gcf().transFigure, fontsize = "x-small", loc = 'center')
+                plt.legend(bbox_to_anchor = [0.5, 0.85], bbox_transform = plt.gcf().transFigure, fontsize = "x-small", loc = 'center', ncol = 4)
                 death_text = plt.text(0.45, 0.75, "DEATH RATE: " + str(death_rate * 100) + "%",  transform = plt.gcf().transFigure, fontsize = 10)
                 inf_text = plt.text(0.45, 0.725, "INF RATE: " + str(trans_const * 100) + "%", transform = plt.gcf().transFigure, fontsize = 10)
                 recov_text = plt.text(0.45, 0.70, "RECOV RATE: " + str(recov_rate * 100) + "%", transform = plt.gcf().transFigure, fontsize = 10)
@@ -995,18 +995,45 @@ class PageThree(tk.Frame):
 
             if inf_intervention_day:
                 while tt >= inf_intervention_day:
+
+                    if tt == inf_intervention_day:
+                        inf_prompt = plt.text(0.45, 0.25, "INFECTION RATE UPDATED", transform = plt.gcf().transFigure, fontsize = 20, color = 'green', fontname = "Blacklisted")
+                        pass
+                    if tt == inf_intervention_day + 2:
+                        inf_prompt.set_alpha(0.4)
+                        inf_prompt.set_alpha(0.0)
+                        pass
+
                     inf_text.set_text("INF RATE: " + str(trans_const * 100) + "%")
                     break
                 pass
 
             if death_intervention_day:
                 while tt >= death_intervention_day:
+
+                    if tt == death_intervention_day:
+                        death_prompt = plt.text(0.45, 0.25, "DEATH RATE UPDATED", transform = plt.gcf().transFigure, fontsize = 20, color = 'lightgrey', fontname = "Blacklisted")
+                        pass
+                    if tt == death_intervention_day + 2:
+                        death_prompt.set_alpha(0.4)
+                        death_prompt.set_alpha(0.0)
+                        pass
+
                     death_text.set_text("DEATH RATE: " + str(death_rate * 100) + "%")
                     break
                 pass
 
             if rec_intervention_day:
                 while tt >= rec_intervention_day:
+
+                    if tt == rec_intervention_day:
+                        rec_prompt = plt.text(0.45, 0.25, "RECOVERY RATE UPDATED", transform = plt.gcf().transFigure, fontsize = 20, color = "blue", fontname = "Blacklisted")
+                        pass
+                    if tt == rec_intervention_day + 2:
+                        rec_prompt.set_alpha(0.4)
+                        rec_prompt.set_alpha(0.0)
+                        pass
+
                     recov_text.set_text("RECOV RATE: " + str(recov_rate * 100) + "%")
                     break
                 pass
@@ -1048,8 +1075,8 @@ class PageThree(tk.Frame):
                 pass
 
             plt.subplot(1, 3, 2)
-            plt.pie(pi_sizes, explode = pi_explode, labels = pi_labels, colors = pi_colors, autopct = "%1.1f%%", shadow = True, pctdistance = 1.5, startangle = 90)
-            plt.pie(pi_g_sizes, labels = pi_g_labels, colors = pi_g_colors, autopct = "%1.1f%%", shadow = True, radius = 0.75, startangle = 90)
+            plt.pie(pi_sizes, explode = pi_explode, labels = pi_labels, colors = pi_colors, autopct = "%1.1f%%", shadow = True, pctdistance = 1.75, startangle = 140)
+            plt.pie(pi_g_sizes, labels = pi_g_labels, colors = pi_g_colors, autopct = "%1.1f%%", shadow = True, radius = 0.75, startangle = 140)
             pi_circle = plt.Circle((0,0), 0.7, color = 'white')
             p = plt.gcf()
             p.gca().add_artist(pi_circle)

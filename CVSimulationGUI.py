@@ -978,7 +978,7 @@ class PageThree(tk.Frame):
             plt.title("STATS GRAPH")
             plt.xlabel("DAYS")
             plt.ylabel("PEOPLE")
-            plt.plot(tt, self.result_array[tt, 0], 'yo', label = "Suspects")
+            plt.plot(tt, self.result_array[tt, 0], 'yo', label = "SUSPECTS")
             plt.plot(tt, self.result_array[tt, 1], 'go', label = "Infected") 
             plt.plot(tt, self.result_array[tt, 2], 'bo', label = "Recovered")
             plt.plot(tt, self.result_array[tt, 3], 'ko', label = "Died")

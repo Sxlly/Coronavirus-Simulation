@@ -860,7 +860,7 @@ class PageThree(tk.Frame):
         """Infected Intervention"""
         if inf_int_time.index("end") != 0:  
             inf_intervention_day = int(inf_int_time.get("1.0", "end-1c"))
-            inf_intervention_rate = float(inf_int_rate.get("1.0", "end-1c"))
+            inf_intervention_rate = float( (inf_int_rate.get()) / 100 )
             pass
         else:
             pass
@@ -868,7 +868,7 @@ class PageThree(tk.Frame):
         """Death Interention"""
         if death_int_time.index("end") != 0:
             death_intervention_day = int(death_int_time.get("1.0", "end-1c"))
-            death_intervention_rate = float(death_int_rate.get("1.0", "end-1c"))
+            death_intervention_rate = float( (death_int_rate.get()) / 100 )
             pass
         else:
             pass
@@ -876,7 +876,7 @@ class PageThree(tk.Frame):
         """Recovery Intervention"""
         if rec_int_time.index("end") != 0:
             rec_intervention_day = int(rec_int_time.get("1.0", "end-1c"))
-            rec_intervention_rate = float(rec_int_rate.get("1.0", "end-1c"))
+            rec_intervention_rate = float( (rec_int_rate.get()) / 100 )
             pass
         else:
             pass

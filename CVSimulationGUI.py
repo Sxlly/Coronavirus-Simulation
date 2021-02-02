@@ -633,15 +633,15 @@ class PageThree(tk.Frame):
 
         """Simulation Value Widgets"""
         trans_text = tk.Label(self, text="Transmission Rate", font = QUICK_FONT)
-        trans_input = tk.Text(self, height =  2, width = 8, bg = "light green")
+        trans_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
         trans_text.place(x = 180, y = 125)
         trans_input.place(x = 200, y = 150)
         recov_text = tk.Label(self, text="Recovery Rate", font = QUICK_FONT)
-        recov_input = tk.Text(self, height = 2, width = 8, bg= "light blue")
+        recov_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
         recov_text.place(x = 350, y = 125)
         recov_input.place(x = 360, y = 150)
         death_text = tk.Label(self, text="Death Rate", font = QUICK_FONT)
-        death_input = tk.Text(self, height = 2, width =  8, bg = "light grey")
+        death_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
         death_text.place(x = 520, y = 125)
         death_input.place(x = 525, y = 150)
         days_text = tk.Label(self, text="Days", font = QUICK_FONT)
@@ -669,7 +669,7 @@ class PageThree(tk.Frame):
         rec_int_title = tk.Label(self, text = "Start Day", font = QUICK_FONT)
         rec_int_title2 = tk.Label(self, text = "Recovery Rate", font = QUICK_FONT)
         rec_int_time = tk.Text(self, height = 2, width = 8, bg = "light blue")
-        rec_int_rate = tk.Text(self, height = 2, width = 8, bg = "light blue")
+        rec_int_rate = tk.Scale(orient = "horizontal", from_ = 0, to = 100)
 
         """Initial Infect Widgets"""
         initial_infect_title = tk.Label(self, text= "Enter Name Of Initial Infected Person", font = QUICK_FONT)
@@ -979,9 +979,9 @@ class PageThree(tk.Frame):
             plt.xlabel("DAYS")
             plt.ylabel("PEOPLE")
             plt.plot(tt, self.result_array[tt, 0], 'yo', label = "SUSPECTS")
-            plt.plot(tt, self.result_array[tt, 1], 'go', label = "Infected") 
-            plt.plot(tt, self.result_array[tt, 2], 'bo', label = "Recovered")
-            plt.plot(tt, self.result_array[tt, 3], 'ko', label = "Died")
+            plt.plot(tt, self.result_array[tt, 1], 'go', label = "INFECTED") 
+            plt.plot(tt, self.result_array[tt, 2], 'bo', label = "RECOVERED")
+            plt.plot(tt, self.result_array[tt, 3], 'ko', label = "DIED")
             plt.subplots_adjust(wspace = 0.75)
 
 

@@ -658,18 +658,18 @@ class PageThree(tk.Frame):
         death_int_title = tk.Label(self, text = "Start Day", font = QUICK_FONT)
         death_int_title2 = tk.Label(self, text = "Death Rate", font = QUICK_FONT)
         death_int_time = tk.Text(self, height = 2, width = 8, bg = "light grey")
-        death_int_rate = tk.Text(self, height = 2, width = 8, bg = "light grey")
+        death_int_rate = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100, bg = "light grey")
 
 
         inf_int_title = tk.Label(self, text="Start Day", font = QUICK_FONT)
         inf_int_title2 = tk.Label(self, text="Transmission Rate", font = QUICK_FONT)
         inf_int_time = tk.Text(self, height = 2, width = 8, bg= "light green")
-        inf_int_rate = tk.Text(self, height = 2, width = 8, bg = "light green")
+        inf_int_rate = tk.Scale(self, orient = "horizontal", from_= 0, to = 100, bg = "light green")
 
         rec_int_title = tk.Label(self, text = "Start Day", font = QUICK_FONT)
         rec_int_title2 = tk.Label(self, text = "Recovery Rate", font = QUICK_FONT)
         rec_int_time = tk.Text(self, height = 2, width = 8, bg = "light blue")
-        rec_int_rate = tk.Scale(orient = "horizontal", from_ = 0, to = 100)
+        rec_int_rate = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100, bg = "light blue")
 
         """Initial Infect Widgets"""
         initial_infect_title = tk.Label(self, text= "Enter Name Of Initial Infected Person", font = QUICK_FONT)

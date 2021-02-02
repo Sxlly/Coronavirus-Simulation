@@ -633,15 +633,15 @@ class PageThree(tk.Frame):
 
         """Simulation Value Widgets"""
         trans_text = tk.Label(self, text="Transmission Rate", font = QUICK_FONT)
-        trans_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
+        trans_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100, bg = "light green")
         trans_text.place(x = 180, y = 125)
         trans_input.place(x = 200, y = 150)
         recov_text = tk.Label(self, text="Recovery Rate", font = QUICK_FONT)
-        recov_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
+        recov_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100, bg = "light blue")
         recov_text.place(x = 350, y = 125)
         recov_input.place(x = 360, y = 150)
         death_text = tk.Label(self, text="Death Rate", font = QUICK_FONT)
-        death_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100)
+        death_input = tk.Scale(self, orient = "horizontal", from_ = 0, to = 100, bg = "light grey")
         death_text.place(x = 520, y = 125)
         death_input.place(x = 525, y = 150)
         days_text = tk.Label(self, text="Days", font = QUICK_FONT)

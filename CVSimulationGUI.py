@@ -794,9 +794,9 @@ class PageThree(tk.Frame):
         try:
             """Holding Original Rates From Simulation Main Page"""
             
-            self.g_trans_rate = float(trans_input.get("1.0", "end-1c"))
-            self.g_death_rate = float(death_input.get("1.0", "end-1c"))
-            self.g_recov_rate = float(recov_input.get("1.0", "end-1c"))
+            self.g_trans_rate = float( (trans_input.get()) / 100 )
+            self.g_death_rate = float( (death_input.get()) / 100 )
+            self.g_recov_rate = float( (recov_input.get()) / 100 )
             self.g_days = int(days_input.get("1.0", "end-1c"))
             self.g_initial_infect = str(initial_infect.get("1.0", "end-1c"))
 
